@@ -13,7 +13,9 @@ class BookshelfComponent extends Component {
                     {shelfBooks.map(shelfBook => {
                         return (
                             <li key={shelfBook.id}>
-                                <BookComponent />
+                                <BookComponent
+                                    book={shelfBook}
+                                />
                             </li>
                         )
                     })}
