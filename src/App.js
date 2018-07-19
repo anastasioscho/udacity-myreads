@@ -1,9 +1,9 @@
 import React from 'react'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
-import BookshelfComponent from './BookshelfComponent'
 import SearchComponent from './SearchComponent'
-import {Route, Link} from 'react-router-dom'
+import {Route} from 'react-router-dom'
+import BookcaseComponent from './BookcaseComponent';
 
 class BooksApp extends React.Component {
   state = {
@@ -20,10 +20,6 @@ class BooksApp extends React.Component {
     BooksAPI.getAll().then(books => {
       this.setState({books})
     })
-  }
-
-  filterBooks(shelf) {
-    return this.state.books.filter(book => book.shelf === shelf)
   }
 
   onShelfChange = (bookChanges) => {
@@ -44,21 +40,10 @@ class BooksApp extends React.Component {
     return (
       <div className="app">
         <Route exact path='/' render={() => (
-          <div className="list-books">
-            <div className="list-books-title">
-              <h1>MyReads</h1>
-            </div>
-            <div className="list-books-content">
-              <div>
-                <BookshelfComponent shelfTitle='Currently Reading' shelfBooks={this.filterBooks('currentlyReading')} onShelfChange={this.onShelfChange}/>
-                <BookshelfComponent shelfTitle='Want to Read' shelfBooks={this.filterBooks('wantToRead')} onShelfChange={this.onShelfChange}/>
-                <BookshelfComponent shelfTitle='Read' shelfBooks={this.filterBooks('read')} onShelfChange={this.onShelfChange}/>
-              </div>
-            </div>
-            <div className="open-search">
-              <Link to='/search'>Add a book</Link>
-            </div>
-          </div>
+          <BookcaseComponent
+            books = {this.state.books}
+            onShelfChange = {this.onShelfChange}
+          />
         )}/>
 
         <Route path='/search' render={() => (
