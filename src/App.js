@@ -22,17 +22,16 @@ class BooksApp extends React.Component {
     })
   }
 
-  onShelfChange = (bookChanges) => {
+  onShelfChange = (movedBook, shelf) => {
     const books = this.state.books.filter((book) => {
-      for (const shelf in bookChanges) {
-        if (bookChanges.hasOwnProperty(shelf) && bookChanges[shelf].includes(book.id)) {
-          book.shelf = shelf
-          return book
-        }
-      }
-      return false
+      return book.id !== movedBook.id
     })
 
+    if (shelf !== 'none') {
+      movedBook.shelf = shelf
+      books.push(movedBook)
+    }
+    
     this.setState({books})
   }
 

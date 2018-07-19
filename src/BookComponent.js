@@ -4,8 +4,9 @@ import * as BooksAPI from './BooksAPI'
 
 class BookComponent extends Component {
     handleChange = (event) => {
-        BooksAPI.update({id: this.props.book.id}, event.target.value).then(shelfChanges => {
-            this.props.onShelfChange(shelfChanges)
+        const selectedShelf = event.target.value
+        BooksAPI.update({id: this.props.book.id}, selectedShelf).then(() => {
+            this.props.onShelfChange(this.props.book, selectedShelf)
         })
     }
 
