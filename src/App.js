@@ -27,11 +27,9 @@ class BooksApp extends React.Component {
       return book.id !== movedBook.id
     })
 
-    if (shelf !== 'none') {
-      movedBook.shelf = shelf
-      books.push(movedBook)
-    }
-    
+    movedBook.shelf = shelf
+    books.push(movedBook)
+
     this.setState({books})
   }
 
@@ -46,7 +44,10 @@ class BooksApp extends React.Component {
         )}/>
 
         <Route path='/search' render={() => (
-          <SearchComponent/>
+          <SearchComponent
+            books = {this.state.books}
+            onShelfChange = {this.onShelfChange}
+          />
         )}/>
       </div>
     )
