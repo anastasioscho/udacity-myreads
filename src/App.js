@@ -28,7 +28,9 @@ class BooksApp extends React.Component {
     })
 
     movedBook.shelf = shelf
-    books.push(movedBook)
+    if (movedBook.shelf !== 'none') {
+      books.push(movedBook)
+    }
 
     this.setState({books})
   }
