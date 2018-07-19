@@ -25,6 +25,20 @@ class BooksApp extends React.Component {
     return this.state.books.filter(book => book.shelf === shelf)
   }
 
+  onShelfChange = (bookChanges) => {
+    const books = this.state.books.filter((book) => {
+      for (const shelf in bookChanges) {
+        if (bookChanges.hasOwnProperty(shelf) && bookChanges[shelf].includes(book.id)) {
+          book.shelf = shelf
+          return book
+        }
+      }
+      return false
+    })
+
+    this.setState({books})
+  }
+
   render() {
     return (
       <div className="app">
@@ -56,9 +70,9 @@ class BooksApp extends React.Component {
             </div>
             <div className="list-books-content">
               <div>
-                <BookshelfComponent shelfTitle='Currently Reading' shelfBooks={this.filterBooks('currentlyReading')}/>
-                <BookshelfComponent shelfTitle='Want to Read' shelfBooks={this.filterBooks('wantToRead')}/>
-                <BookshelfComponent shelfTitle='Read' shelfBooks={this.filterBooks('read')}/>
+                <BookshelfComponent shelfTitle='Currently Reading' shelfBooks={this.filterBooks('currentlyReading')} onShelfChange={this.onShelfChange}/>
+                <BookshelfComponent shelfTitle='Want to Read' shelfBooks={this.filterBooks('wantToRead')} onShelfChange={this.onShelfChange}/>
+                <BookshelfComponent shelfTitle='Read' shelfBooks={this.filterBooks('read')} onShelfChange={this.onShelfChange}/>
               </div>
             </div>
             <div className="open-search">

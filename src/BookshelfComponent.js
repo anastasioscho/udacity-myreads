@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 
 class BookshelfComponent extends Component {
     render() {
-        const {shelfTitle, shelfBooks} = this.props
+        const {shelfTitle, shelfBooks, onShelfChange} = this.props
 
         return (
             <div className="bookshelf">
@@ -16,6 +16,7 @@ class BookshelfComponent extends Component {
                             <li key={shelfBook.id}>
                                 <BookComponent
                                     book={shelfBook}
+                                    onShelfChange={onShelfChange}
                                 />
                             </li>
                         )
@@ -29,7 +30,8 @@ class BookshelfComponent extends Component {
 
 BookshelfComponent.propTypes = {
     shelfTitle: PropTypes.string.isRequired,
-    shelfBooks: PropTypes.arrayOf(PropTypes.object).isRequired
+    shelfBooks: PropTypes.arrayOf(PropTypes.object).isRequired,
+    onShelfChange: PropTypes.func.isRequired
 }
 
 export default BookshelfComponent
