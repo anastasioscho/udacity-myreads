@@ -73,6 +73,7 @@ class SearchComponent extends Component {
                     </div>
                 </div>
                 <div className="search-books-results">
+                    {(this.state.foundBooks.length > 0) && <h2>{this.state.foundBooks.length} books found</h2>}
                     <ol className="books-grid">
                         {this.state.foundBooks.map((book) => {
                             return (
