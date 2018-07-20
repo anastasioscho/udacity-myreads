@@ -21,6 +21,22 @@ class SearchComponent extends Component {
         })
     }
 
+    onShelfChange = (movedBook) => {
+        // Update the state
+        const foundBooks = this.state.foundBooks.map((foundBook) => {
+            if (foundBook.id === movedBook.id) {
+                foundBook.shelf = movedBook.shelf
+            }
+
+            return foundBook
+        })
+
+        this.setState({foundBooks})
+
+        // Update the parent's state
+        this.props.onShelfChange(movedBook)
+    }
+
     updateBooks(booksToUpdate) {
         const updatedBooks = booksToUpdate.map((bookToUpdate) => {
             bookToUpdate.shelf = 'none'
@@ -40,7 +56,6 @@ class SearchComponent extends Component {
     }
 
     render() {
-        const {onShelfChange} = this.props
         return (
             <div className="search-books">
                 <div className="search-books-bar">
@@ -64,7 +79,7 @@ class SearchComponent extends Component {
                                 <li key={book.id}>
                                     <BookComponent
                                         book={book}
-                                        onShelfChange={onShelfChange}
+                                        onShelfChange={this.onShelfChange}
                                     />
                                 </li>
                             )

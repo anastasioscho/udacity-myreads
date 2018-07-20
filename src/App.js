@@ -22,12 +22,11 @@ class BooksApp extends React.Component {
     })
   }
 
-  onShelfChange = (movedBook, shelf) => {
+  onShelfChange = (movedBook) => {
     const books = this.state.books.filter((book) => {
       return book.id !== movedBook.id
     })
-
-    movedBook.shelf = shelf
+    
     if (movedBook.shelf !== 'none') {
       books.push(movedBook)
     }

@@ -6,7 +6,9 @@ class BookComponent extends Component {
     handleChange = (event) => {
         const selectedShelf = event.target.value
         BooksAPI.update({id: this.props.book.id}, selectedShelf).then(() => {
-            this.props.onShelfChange(this.props.book, selectedShelf)
+            const movedBook = Object.assign({}, this.props.book)
+            movedBook.shelf = selectedShelf
+            this.props.onShelfChange(movedBook)
         })
     }
 
