@@ -10,7 +10,13 @@ class SearchComponent extends Component {
     }
 
     handleChange = (event) => {
-        BooksAPI.search(event.target.value).then((foundBooks) => {
+        const searchQuery = event.target.value
+        if (searchQuery.trim().length === 0) {
+            this.setState({foundBooks: []})
+            return
+        }
+        
+        BooksAPI.search(searchQuery).then((foundBooks) => {
             if (foundBooks.length > 0) {
                 this.setState({foundBooks: this.updateBooks(foundBooks)})
             } else {
